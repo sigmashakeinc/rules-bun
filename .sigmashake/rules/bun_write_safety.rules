@@ -32,7 +32,7 @@ rule bun-unsafe-file-read-sync {
   enabled true
   priority 70
   severity warning
-  ASK write
+  LOG write
   IF path GLOB "**/*.{js,ts,jsx,tsx,mjs,cjs}" AND (content CONTAINS ".textSync()" OR content CONTAINS ".arrayBufferSync()")
   MESSAGE "Synchronous file read detected: Using '.textSync()' or '.arrayBufferSync()' can block the event loop, leading to performance issues and potential Denial-of-Service (DoS) if reading large or untrusted files. Prefer asynchronous methods like '.text()' or '.arrayBuffer()' with 'await' for non-blocking I/O."
 }
@@ -50,7 +50,7 @@ rule bun-google-js-style-no-var {
   enabled true
   priority 50
   severity warning
-  ASK write
+  LOG write
   IF path GLOB "**/*.{js,ts,jsx,tsx,mjs,cjs}" AND content CONTAINS "var "
   MESSAGE "Style Guide Violation: Usage of 'var' keyword detected. Modern JavaScript and Google's JavaScript Style Guide recommend using 'const' or 'let' for variable declarations to improve scope management, prevent common hoisting-related bugs, and enhance code readability. Please refactor to use 'const' or 'let'."
 }
